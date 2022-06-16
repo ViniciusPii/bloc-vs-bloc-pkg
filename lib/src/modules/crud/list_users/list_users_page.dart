@@ -4,9 +4,6 @@ import 'package:poc_crud_bloc_pkg_bloc/src/core/theme/app_colors.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/core/theme/app_dimension.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/core/theme/app_fonts.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/models/user_model.dart';
-import 'package:poc_crud_bloc_pkg_bloc/src/modules/crud/list_users/controller/list_users_event.dart';
-import 'package:poc_crud_bloc_pkg_bloc/src/modules/crud/list_users/controller/list_users_state.dart';
-
 import 'controller/list_users_bloc.dart';
 
 class ListUsersPage extends StatefulWidget {

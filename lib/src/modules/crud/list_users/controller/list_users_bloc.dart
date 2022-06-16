@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:poc_crud_bloc_pkg_bloc/src/models/user_model.dart';
-import 'package:poc_crud_bloc_pkg_bloc/src/modules/crud/list_users/controller/list_users_event.dart';
-import 'package:poc_crud_bloc_pkg_bloc/src/modules/crud/list_users/controller/list_users_state.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/services/user/user_service.dart';
+
+part 'list_users_state.dart';
+part 'list_users_event.dart';
 
 class ListUsersBloc {
   ListUsersBloc({

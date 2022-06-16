@@ -1,6 +1,6 @@
-import 'package:poc_crud_bloc_pkg_bloc/src/models/user_model.dart';
+part of 'list_users_bloc.dart';
 
-class ListUsersEvent {}
+abstract class ListUsersEvent {}
 
 class LoadListUsersEvent extends ListUsersEvent {}
 
