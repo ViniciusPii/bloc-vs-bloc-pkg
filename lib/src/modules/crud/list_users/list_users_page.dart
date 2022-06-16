@@ -37,6 +37,14 @@ class _ListUsersPageState extends State<ListUsersPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Listagem'),
+        actions: [
+          IconButton(
+            onPressed: () => controller.listUserEventSink.add(
+              LoadListUsersEvent(),
+            ),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -77,7 +85,11 @@ class _ListUsersPageState extends State<ListUsersPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => controller.listUserEventSink.add(
+          AddListUsersEvent(
+            user: UserModel(name: 'Teste Add'),
+          ),
+        ),
         child: const Icon(Icons.add),
       ),
     );
