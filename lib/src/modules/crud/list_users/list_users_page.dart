@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/core/theme/app_colors.dart';
 import 'package:poc_crud_bloc_pkg_bloc/src/core/theme/app_dimension.dart';
@@ -23,12 +24,12 @@ class _ListUsersPageState extends State<ListUsersPage> {
   void initState() {
     super.initState();
     controller = GetIt.I();
-    controller.listUserEventSink.add(LoadListUsersEvent());
+    controller.add(LoadListUsersEvent());
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    controller.close();
     super.dispose();
   }
 
@@ -39,7 +40,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
         title: const Text('Listagem'),
         actions: [
           IconButton(
-            onPressed: () => controller.listUserEventSink.add(
+            onPressed: () => controller.add(
               LoadListUsersEvent(),
             ),
             icon: const Icon(Icons.refresh),
@@ -60,18 +61,17 @@ class _ListUsersPageState extends State<ListUsersPage> {
             const SizedBox(
               height: AppDimension.size_5,
             ),
-            StreamBuilder<ListUsersState>(
-              stream: controller.listUserStateStream,
-              builder: (context, snapshot) {
-                final users = snapshot.data?.users ?? [];
-                final dataValue = snapshot.data;
+            BlocBuilder<ListUsersBloc, ListUsersState>(
+              bloc: controller,
+              builder: (context, state) {
+                final users = state.users;
 
-                if (dataValue is ListUsersLoadingState) {
+                if (state is ListUsersLoadingState) {
                   return _buildLoading();
                 }
 
-                if (dataValue is ListUsersErrorState) {
-                  return _buildError(dataValue);
+                if (state is ListUsersErrorState) {
+                  return _buildError(state);
                 }
 
                 if (users.isEmpty) {
@@ -85,7 +85,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.listUserEventSink.add(
+        onPressed: () => controller.add(
           AddListUsersEvent(
             user: UserModel(name: 'Teste Add'),
           ),
@@ -104,7 +104,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
           return ListTile(
             title: Text(user.name),
             trailing: IconButton(
-              onPressed: () => controller.listUserEventSink.add(
+              onPressed: () => controller.add(
                 RemoveListUsersEvent(user: user),
               ),
               icon: const Icon(
